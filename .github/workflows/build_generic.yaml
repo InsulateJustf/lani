@@ -113,10 +113,10 @@ jobs:
           echo "::set-output name=image_ref_branch::$image_ref_branch"
           echo "::set-output name=image_ref_latest::$image_ref_latest"
         env:
-          image_ref_run_number: ghcr.io/${{ github.repository_owner }}/${{ steps.build_info.outputs.image_name }}:1.0.${{ github.run_number }}
-          image_ref_sha: ghcr.io/${{ github.repository_owner }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
-          image_ref_branch: ghcr.io/${{ github.repository_owner }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
-          image_ref_latest: ghcr.io/${{ github.repository_owner }}/${{ steps.build_info.outputs.image_name }}:latest
+          image_ref_run_number: ghcr.io/${{ github.actor }}/${{ steps.build_info.outputs.image_name }}:1.0.${{ github.run_number }}
+          image_ref_sha: ghcr.io/${{ github.actor }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
+          image_ref_branch: ghcr.io/${{ github.actor }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
+          image_ref_latest: ghcr.io/${{ github.actor }}/${{ steps.build_info.outputs.image_name }}:latest
 
       - name: Build and push
         id: docker_build
