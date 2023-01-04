@@ -28,7 +28,7 @@ jobs:
     name: Build ${{ inputs.project_name }}
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2.6.0
+      - uses: actions/checkout@v3
         name: Checkout
         with:
           ref: ${{ inputs.ref }}
@@ -58,7 +58,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('rush.json') }}
 
       - name: Cache pnpm
-        uses: actions/cache@v2
+        uses: actions/cache@v3.2.2
         with:
           path: |
             common/temp/pnpm-store
@@ -108,17 +108,17 @@ jobs:
       - name: Eval tag names
         id: tag_names
         run: |
-          echo "gh_repo_owner=${github.repository_owner,,}" >> $GITHUB_ENV
+          echo "OWNER=${github.repository_owner,,}" >> $GITHUB_ENV
           echo "image_ref=$image_name" >> $GITHUB_OUTPUT
           echo "image_ref_run_number=$image_ref_run_number" >> $GITHUB_OUTPUT
           echo "image_ref_sha=$image_ref_sha" >> $GITHUB_OUTPUT
           echo "image_ref_branch=$image_ref_branch" >> $GITHUB_OUTPUT
           echo "image_ref_latest=$image_ref_latest" >> $GITHUB_OUTPUT
         env:
-          image_ref_run_number: ghcr.io/${{ env.gh_repo_owner }}/${{ steps.build_info.outputs.image_name }}:1.0.${{ github.run_number }}
-          image_ref_sha: ghcr.io/${{ env.gh_repo_owner }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
-          image_ref_branch: ghcr.io/${{ env.gh_repo_owner }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
-          image_ref_latest: ghcr.io/${{ env.gh_repo_owner }}/${{ steps.build_info.outputs.image_name }}:latest
+          image_ref_run_number: ghcr.io/${{ env.OWNER }}/${{ steps.build_info.outputs.image_name }}:1.0.${{ github.run_number }}
+          image_ref_sha: ghcr.io/${{ env.OWNER }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
+          image_ref_branch: ghcr.io/${{ env.OWNER }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
+          image_ref_latest: ghcr.io/${{ env.OWNER }}/${{ steps.build_info.outputs.image_name }}:latest
 
       - name: Build and push
         id: docker_build
