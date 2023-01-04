@@ -101,7 +101,6 @@ jobs:
           echo "Escaped ref: $ref_escaped"
           echo "ref_escaped=$ref_escaped" >> $GITHUB_OUTPUT
 
-          echo "gh_repo_owner=${github.repository_owner,,}" >> $GITHUB_ENV
         env:
           project_name: ${{ inputs.project_name }}
           ref_raw: ${{ inputs.ref }}
@@ -109,6 +108,7 @@ jobs:
       - name: Eval tag names
         id: tag_names
         run: |
+          echo "gh_repo_owner=${github.repository_owner,,}" >> $GITHUB_ENV
           echo "image_ref=$image_name" >> $GITHUB_OUTPUT
           echo "image_ref_run_number=$image_ref_run_number" >> $GITHUB_OUTPUT
           echo "image_ref_sha=$image_ref_sha" >> $GITHUB_OUTPUT
