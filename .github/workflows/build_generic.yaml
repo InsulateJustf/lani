@@ -101,6 +101,8 @@ jobs:
           echo "Escaped ref: $ref_escaped"
           echo "ref_escaped=$ref_escaped" >> $GITHUB_OUTPUT
 
+          declare -l "owner=${github.repository_owner}" >> $GITHUB_ENV
+
         env:
           project_name: ${{ inputs.project_name }}
           ref_raw: ${{ inputs.ref }}
@@ -108,17 +110,16 @@ jobs:
       - name: Eval tag names
         id: tag_names
         run: |
-          echo "OWNER=${github.repository_owner,,}" >> $GITHUB_ENV
           echo "image_ref=$image_name" >> $GITHUB_OUTPUT
           echo "image_ref_run_number=$image_ref_run_number" >> $GITHUB_OUTPUT
           echo "image_ref_sha=$image_ref_sha" >> $GITHUB_OUTPUT
           echo "image_ref_branch=$image_ref_branch" >> $GITHUB_OUTPUT
           echo "image_ref_latest=$image_ref_latest" >> $GITHUB_OUTPUT
         env:
-          image_ref_run_number: ghcr.io/${{ env.OWNER }}/${{ steps.build_info.outputs.image_name }}:1.0.${{ github.run_number }}
-          image_ref_sha: ghcr.io/${{ env.OWNER }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
-          image_ref_branch: ghcr.io/${{ env.OWNER }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
-          image_ref_latest: ghcr.io/${{ env.OWNER }}/${{ steps.build_info.outputs.image_name }}:latest
+          image_ref_run_number: ghcr.io/${{ env.owner }}/${{ steps.build_info.outputs.image_name }}:1.0.${{ github.run_number }}
+          image_ref_sha: ghcr.io/${{ env.owner }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
+          image_ref_branch: ghcr.io/${{ env.owner }}/${{ steps.build_info.outputs.image_name }}:${{ github.sha }}
+          image_ref_latest: ghcr.io/${{ env.owner }}/${{ steps.build_info.outputs.image_name }}:latest
 
       - name: Build and push
         id: docker_build
