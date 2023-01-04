@@ -101,7 +101,7 @@ jobs:
           echo "Escaped ref: $ref_escaped"
           echo "ref_escaped=$ref_escaped" >> $GITHUB_OUTPUT
 
-          declare -l "owner=${github.repository_owner}" >> $GITHUB_ENV
+          echo "owner=${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
 
         env:
           project_name: ${{ inputs.project_name }}
