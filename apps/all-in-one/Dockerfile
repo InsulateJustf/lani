@@ -20,6 +20,7 @@ RUN npm install pm2 -g
 WORKDIR /deploy/apps/all-in-one
 COPY ./common/deploy/apps/all-in-one/nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./common/deploy /deploy
+RUN chmod -R 777 /deploy
 
 EXPOSE 8080
 
