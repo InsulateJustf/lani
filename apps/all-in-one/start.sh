@@ -23,4 +23,5 @@ DATABASE_URL=`yq '.postgresUrl' merged.yaml`
 mkdir -p /storage/images
 
 # Replace bash process
+export HOME="/deploy"
 exec pm2-runtime /deploy/apps/all-in-one/ecosystem.config.js
