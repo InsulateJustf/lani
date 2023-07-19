@@ -21,6 +21,7 @@ DATABASE_URL=`yq '.postgresUrl' merged.yaml`
 
 # Create bucket
 mkdir -p /storage/images
+chmod 777 /storage
 
 # Replace bash process
 export HOME="/deploy"
